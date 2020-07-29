@@ -15,7 +15,12 @@ import urllib.request
 app = Flask(__name__)
 classes = ["Bathroom Mirrors", "Bathroom Shelves", "Bathroom Sinks", "Ceiling Fans", "Curtain Rods", "Pet Beds", "Rugs", "Toilet Paper Holders", "Towel Bars", "Towel Hooks", "Towel Racks", "Towel Rings"]
 transfer_learning_model = tf.keras.models.Sequential()
-is_model_trained = false
+is_model_trained = 'false'
+
+# home page
+@app.route("/")
+def home():
+    return render_template("test.html")
 
 def loadImages():
   with urllib.request.urlopen('https://gist.github.com/shibicr93/6d5550dea9252af511a18a5a8264bf50/raw/fa77f4454e7e9db7186dc4dbb9b3ac207f7a5f78/imgurls_12*100.json') as url:
@@ -37,7 +42,7 @@ def loadImages():
                     continue
 
 @app.route("/ismodeltrained")
-def trainModel():
+def isModelTrained():
     return is_model_trained, 200                    
 
 @app.route("/train")
@@ -87,12 +92,6 @@ def trainModel():
   history = transfer_learning_model.fit(train_generator, epochs=30, verbose = 2)
   is_model_trained = true
 
-
-
-# home page
-@app.route("/")
-def home():
-    return render_template("test.html")
 
 @app.route('/predict',methods=['POST'])
 def predict():

@@ -1,4 +1,4 @@
 runtime: python38
 instance_class : B8
 manual_scaling:
-  instances: 5
+  instances: 1
